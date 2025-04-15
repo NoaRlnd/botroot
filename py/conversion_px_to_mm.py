@@ -1,6 +1,6 @@
 # --- Mesures physiques du champ de vision (en mm)
-real_width_mm = 220       # largeur physique vue par la caméra éstimée
-real_height_mm = 158     # hauteur physique vue par la caméra estimée
+real_width_mm = 205       # largeur physique vue par la caméra éstimée
+real_height_mm = 151     # hauteur physique vue par la caméra estimée
 
 # --- Résolution de l'image (en pixels)
 img_width = 640
