@@ -1,0 +1,21 @@
+# Fichiers Python inutiles
+__pycache__/
+*.pyc
+
+# Données sensibles ou variables d'environnement
+.env
+
+# Autres dossiers de cache (optionnel)
+*.log
+
+# Virtual environment
+venv/
+.venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Distribution files
+build/
+dist/
+*.egg-info/
