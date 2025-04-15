@@ -1,10 +1,15 @@
 from blob_scan import detect_weeds
 from farmbot_status import get_current_position
+from dotenv import load_dotenv
 import requests
+import os
+
 
 # --- Identifiants FarmBot ---
-EMAIL = "trolions71@gmail.com"
-PASSWORD = "farmbot21" 
+load_dotenv()
+
+EMAIL = os.getenv("FARMBOT_EMAIL")
+PASSWORD = os.getenv("FARMBOT_PASSWORD")
 
 # --- Fonction d'envoi des mauvaises herbes ---
 def send_to_farmbot(weeds):
