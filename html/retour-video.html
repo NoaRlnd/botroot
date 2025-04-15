@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>plot</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></script>
+    <script src="../js/login.js"></script>
+</head>
+<body>
+    <section>
+        <header class="header">
+            <img src="../image/cropped-logo-transparent.png" alt="logo de STJO dijon">
+            <nav class="nav">
+                <li><a class="button" href="index.html">Accueil -</a></li>
+                <li><a class="button" href="retour-video.html">retour video</a></li>
+                <li><a class="button" href="authentification.html">connexion/ gérer co.</a></li>
+                <li><a class="button" href="deconnexion.html">se déconnecter</a></li>
+            </nav>
+        </header>
+    </section>
+    <section class="video-landing">
+        <iframe src="http://192.168.218.245:81/stream" width="640" height="480"></iframe>
+    </section>
+    <section class="video-landing">
+        <iframe src="http://192.168.218.245/capture" width="640" height="480"></iframe>
+    </section>  <!-- pour identifier les mauvaises herbes grâce au script il faut faire "python blob-scan.py" dans le terminal -->
+</body>
+
+

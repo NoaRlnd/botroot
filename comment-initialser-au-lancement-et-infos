@@ -1,0 +1,21 @@
+lancer node js : (dans le terminal et dans le bon folder CAD dans mon cas : 
+C:\Users\-\Documents\html\node_et_express\auth-backend) 
+node server.js
+
+
+pour le flux video :
+-dans onedrive tu prends le code camerawebserver esp rejoind un wifi
+-tu met l'ssid du wifi et le mdp
+-tu le lance et tu et l'ip que il donne qui est déjà sur le site va fonctionner tt seul
+
+au niveau des commandes py :
+    - Lancer la détection seule (affiche les zones sur l’image)
+python blob_scan.py
+
+
+    - Lancer le pipeline complet (détection + conversion + envoi à FarmBot)
+python send_to_farmbot.py
+
+
+    - Tester l'authentification API (token)
+python BS_testing.py
