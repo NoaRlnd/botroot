@@ -1,3 +1,4 @@
+
 # 📘 Guide Git pour le projet BotRoot
 
 ## ⚙️ Initialisation du projet (déjà fait)
@@ -91,3 +92,40 @@ __pycache__/
 ```
 
 ➡️ Évite d’ajouter les fichiers temporaires ou secrets à ton dépôt GitHub.
+
+---
+
+## 🧳 Reprendre le projet sur un autre PC (setup multi-machine)
+
+### 1. Depuis ton PC actuel (sauvegarde sur GitHub) :
+
+```bash
+git add .
+git commit -m "Dernières modifs avant changement de machine"
+git push
+```
+
+### 2. Sur le nouveau PC :
+
+```bash
+git clone https://github.com/NoaRlnd/botroot.git
+cd botroot
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+Crée un fichier `py/.env` ou plutôt `.env` tout court avec :
+
+```
+FARMBOT_EMAIL=ton@email.com 
+FARMBOT_PASSWORD=tonmotdepasse
+```
+
+➡️ Tu es prêt à lancer le projet :
+
+```bash
+python blob_scan.py
+python send_to_farmbot.py
+python grid_scan.py
+```
