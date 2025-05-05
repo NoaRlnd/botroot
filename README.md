@@ -16,7 +16,7 @@ Créer un système capable de :
 
 ---
 
-## 🗂️ Structure du projet
+## 🗂️ Structure du projet 
 
 ```
 BotRoot/
@@ -50,9 +50,22 @@ BotRoot/
 - Créer un compte sur https://my.farm.bot
 - Avoir Python 3 installé
 
-### Installation des dépendances
+### (Optionnel) Utiliser un environnement virtuel Python
 ```bash
-pip install opencv-python numpy requests
+# Créer l’environnement
+python -m venv .venv
+
+# Activer l’environnement sous PowerShell
+.venv\Scripts\Activate.ps1
+
+# Installer les dépendances manuellement
+pip install opencv-python numpy requests python-dotenv
+
+# OU (recommandé si requirements.txt est fourni)
+pip install -r requirements.txt
+
+# Sauvegarder les dépendances, ca prend toutes les extensions et dépendances et ca les mets dans requirments.txt. comme ca tu peux faire la commande du dessus avec tout ce qui faut
+pip freeze > requirements.txt
 ```
 
 ### Lancer la détection seule
@@ -65,6 +78,12 @@ python blob_scan.py
 python send_to_farmbot.py
 ```
 
+### Fonction de filtrage par \"spread\"
+Le script exclut automatiquement les mauvaises herbes trop proches d'une plante utile (en se basant sur le rayon de \"spread\" des plantes défini par FarmBot).
+
+➡️ Cela permet d'éviter de marquer comme weed une pousse utile.
+
+
 ➡️ Les mauvaises herbes détectées s'afficheront automatiquement dans votre jardin virtuel FarmBot 🌿
 
 ---
@@ -75,15 +94,15 @@ python send_to_farmbot.py
 - [x] Récupération position bras
 - [x] Envoi à l’API FarmBot
 - [ ] Scan automatique du bac complet
-- [ ] Filtrage par "spread" des plantes
+- [x] Filtrage par "spread" des plantes
 - [ ] Intégration laser (simulation ou GPIO)
 
 
 ---
 
 ## 🙋‍♂️ Auteur
-**Noa** – Étudiant en informatique 🧠🌿
-**nathan r** - Étudiant en informatique
+**Noa** – Étudiant en informatique 🧠
+**nathan r** - Étudiant en informatique 🌿
 > Projet personnel d’apprentissage en vision par ordi, robotique et dev embarqué
 
 
@@ -101,4 +120,4 @@ Consulte `git_guide.md` pour toutes les commandes utiles au projet.
 ---
 
 ## ✨ Licence
-Libre pour tout usage éducatif, expérimental ou pédagogique 💡
+Libre pour tout usage éducatif, expérimental ou pédagogique (license MIT) 💡
