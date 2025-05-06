@@ -33,4 +33,4 @@ def run_sequence(sequence_id):
 
 if __name__ == "__main__":
     # 🔧 Remplace l'ID ci-dessous par celui de ta séquence "burn_weed"
-    run_sequence(sequence_id=laserification)
+    run_sequence(sequence_id=247082)
