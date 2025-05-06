@@ -10,7 +10,7 @@ load_dotenv()
 EMAIL = os.getenv("FARMBOT_EMAIL")
 PASSWORD = os.getenv("FARMBOT_PASSWORD")
 
-SEQUENCE_ID = 247082  # ID de la séquence "laserification"
+SEQUENCE_ID = 247148  # ID de la séquence "laserification"
 
 def get_token():
     res = requests.post("https://my.farm.bot/api/tokens", json={

@@ -1,7 +1,7 @@
 import requests
 
-EMAIL = "trolions71@gmail.com"
-PASSWORD = "farmbot21"
+EMAIL = "numerique@association-ore.fr"
+PASSWORD = "Fablab@0r3"
 
 res = requests.post("https://my.farm.bot/api/tokens", json={
     "user": {

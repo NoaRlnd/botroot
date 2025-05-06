@@ -33,4 +33,4 @@ def run_sequence(sequence_id):
 
 if __name__ == "__main__":
     # ID de la séquence "burn_weed"
-    run_sequence(sequence_id=247082)
+    run_sequence(sequence_id=247148)
