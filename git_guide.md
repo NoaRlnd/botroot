@@ -115,7 +115,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-Crée un fichier `py/.env` ou plutôt `.env` tout court avec :
+Crée un fichier `py/.env` avec :
 
 ```
 FARMBOT_EMAIL=ton@email.com 
