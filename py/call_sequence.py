@@ -32,5 +32,5 @@ def run_sequence(sequence_id):
         print(f"❌ Erreur lors du lancement : {res.status_code}", res.text)
 
 if __name__ == "__main__":
-    # 🔧 Remplace l'ID ci-dessous par celui de ta séquence "burn_weed"
+    # ID de la séquence "burn_weed"
     run_sequence(sequence_id=247082)
