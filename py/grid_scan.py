@@ -3,6 +3,8 @@ from farmbot_status import get_current_position
 from movement import move_to
 import time
 
+DELAI_MOUVEMENT = 2.0
+
 # --- Paramètres de la grille (ajustés au bac FarmBot Express 1.1) ---
 GRID_WIDTH = 6       # 1200 mm / 205 mm ≈ 6
 GRID_HEIGHT = 20     # 3000 mm / 151 mm ≈ 20
@@ -42,7 +44,7 @@ def scan_area():
         image, weeds = detect_weeds()
 
         print(f"  -> {len(weeds)} mauvaise(s) herbe(s) détectée(s) à cette position\n")
-        time.sleep(1) # Pause entre les captures (pour simuler le temps de déplacement)
+        time.sleep(DELAI_MOUVEMENT) # Pause entre les captures (pour simuler le temps de déplacement)
 
     print("✅ Scan terminé.")
 

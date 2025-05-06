@@ -9,11 +9,11 @@ img_width = 640
 img_height = 480
 
 # Dimensions physiques vues par la caméra (à ajuster selon tes mesures réelles)
-real_width_mm = 300   # à remplacer par la valeur réelle
-real_height_mm = 225  # pareil
+real_width_mm = 205   # à remplacer par la valeur réelle
+real_height_mm = 151  # pareil
 
 # Adresse IP de votre ESP32-CAM (modifiez-la si besoin)
-ESP32_URL = "http://192.168.218.245/capture" # URL de l'ESP32-CAM
+ESP32_URL = "http://192.168.208.245/capture" # URL de l'ESP32-CAM
 
 # --- Fonctions ---
 def get_image_from_esp32(url):
