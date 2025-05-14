@@ -21,12 +21,19 @@ Créer un système capable de :
 ```
 BotRoot/
 └── py/
+    ├── grid_scan.py               # Scan automatique du bac (en grille)
+    ├── movement.py                # Fonctions de mouvement du bras FarmBot
+    ├── call_sequence.py           # Appel manuel d'une séquence FarmBot
+    ├── plant_filter.py            # Filtrage des mauvaises herbes proches des plantes
+    ├── test_distance.py           # Test unitaire de la distance euclidienne
+    ├── get_bac_dimensions.py      # Tentative d'estimation automatique de la taille du bac, un peu useless
+    ├── BS_testing.py              # Script de test de connexion/authentification à l'API FarmBot
     ├── blob_scan.py               # Détection d’herbes sur image (OpenCV + ESP32)
     ├── conversion_px_to_mm.py     # Conversion coordonnées pixels → millimètres
     ├── send_to_farmbot.py         # Script principal : détection + envoi API
     ├── farmbot_status.py          # Récupération de la position du bras FarmBot
-    ├── git_guide.md               # Fiche d’aide sur Git
-    └── README.md                  # Présentation du projet
+    ├── git_guide.md               # Fiche d’aide sur Git (pas dans le dossier py)
+    └── README.md                  # Présentation du projet (pareil)
 ```
 
 ---
@@ -76,6 +83,12 @@ python blob_scan.py
 ### Lancer la détection + envoi vers FarmBot
 ```bash
 python send_to_farmbot.py
+
+# Lancer un scan complet en grille (en mode simulation)
+python grid_scan.py
+
+# Appeler manuellement la séquence "laserification"
+python call_sequence.py
 ```
 
 ### Fonction de filtrage par \"spread\"
@@ -93,9 +106,10 @@ Le script exclut automatiquement les mauvaises herbes trop proches d'une plante 
 - [x] Conversion px → mm calibrée
 - [x] Récupération position bras
 - [x] Envoi à l’API FarmBot
-- [ ] Scan automatique du bac complet
+- [x] Scan automatique du bac complet
 - [x] Filtrage par "spread" des plantes
 - [ ] Intégration laser (simulation ou GPIO)
+- [x] Intégration laser (via séquence FarmBot)
 
 
 ---
@@ -112,6 +126,10 @@ Le script exclut automatiquement les mauvaises herbes trop proches d'une plante 
 Penser à ne **pas versionner** ses identifiants !
 Ajoute-les dans un `.env` ou stocke-les ailleurs si besoin 💡
 
+# Exemple de .env à la racine du projet (botroot/.env)
+FARMBOT_EMAIL=xxxxxxxxxxxxxx@xxxxxxxx.fr
+FARMBOT_PASSWORD=xxxxxxxxxx
+
 ---
 
 ## 📘 Documentation Git
@@ -119,5 +137,14 @@ Consulte `git_guide.md` pour toutes les commandes utiles au projet.
 
 ---
 
+## 🧪 Fiche de tests physiques
+
+Consulte `test_checklist.md` pour la procédure complète de test avec FarmBot physique :
+- Déplacement manuel
+- Scan automatique en simulation ou réel
+- Déclenchement de la séquence laser
+- Vérification sur l’interface FarmBot
+
+---
 ## ✨ Licence
 Libre pour tout usage éducatif, expérimental ou pédagogique (license MIT) 💡
