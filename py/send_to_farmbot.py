@@ -7,12 +7,12 @@ import websocket
 import requests
 from dotenv import load_dotenv
 
-# 🔧 Chargement du fichier .env contenant les identifiants
+# Chargement du fichier .env contenant les identifiants
 load_dotenv()
 EMAIL = os.getenv("FARMBOT_EMAIL")
 PASSWORD = os.getenv("FARMBOT_PASSWORD")
 
-# 🔐 Fonction d'authentification qui renvoie les données du token
+# Fonction d'authentification qui renvoie les données du token
 def get_token():
     response = requests.post("https://my.farm.bot/api/tokens", json={
         "user": {"email": EMAIL, "password": PASSWORD}
@@ -20,7 +20,7 @@ def get_token():
     response.raise_for_status()
     return response.json()["token"]
 
-# 📤 Prépare le message de déplacement
+# Prépare le message de déplacement
 def make_move_command(x, y, z):
     return {
         "kind": "rpc_request",
@@ -35,7 +35,7 @@ def make_move_command(x, y, z):
         }]
     }
 
-# 💬 Callback : déclenché à l'ouverture du WebSocket
+# Callback : déclenché à l'ouverture du WebSocket
 def on_open(ws):
     print("✅ Connexion WebSocket établie")
     
@@ -58,29 +58,29 @@ def on_open(ws):
 
     threading.Thread(target=delayed_auth).start()
 
-# 💬 Callback : message reçu
+# Callback : message reçu
 def on_message(ws, message):
     print("📩 Message reçu :", message)
 
-# 💬 Callback : erreur sur la connexion
+# Callback : erreur sur la connexion
 def on_error(ws, error):
     print("❌ Erreur WebSocket :", error)
 
-# 💬 Callback : fermeture de la connexion
+# Callback : fermeture de la connexion
 def on_close(ws, code, msg):
     print("🔌 Connexion WebSocket fermée")
 
-# ▶️ Point d’entrée du script
+# Point d’entrée du script
 print("📦 Test de petits déplacements du bras FarmBot...")
 print(f"🔐 Email récupéré : {EMAIL}")
 
-# 🧾 Récupération du token
+# Récupération du token
 token_data = get_token()
 jwt = token_data["encoded"]
 ws_url = token_data["unencoded"]["mqtt_ws"]  # ex: wss://xxxxx.rmq.cloudamqp.com:443/ws/mqtt
 
 print("🌐 Connexion à WebSocket MQTT...")
-# 🌐 Connexion WebSocket sécurisée avec protocole MQTT
+# Connexion WebSocket sécurisée avec protocole MQTT
 ws = websocket.WebSocketApp(
     ws_url,
     subprotocols=["mqtt"],  # important pour FarmBot
@@ -90,5 +90,5 @@ ws = websocket.WebSocketApp(
     on_close=on_close
 )
 
-# 🔒 Connexion sécurisée TLS/SSL
+# Connexion sécurisée TLS/SSL
 ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
