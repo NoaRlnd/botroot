@@ -4,9 +4,13 @@ from movement import move_to, run_laserification_sequence
 from grid_coords import generate_grid_positions
 from send_laser import send_laser_sequence
 from send_to_farmbot import send_weed_to_farmbot
-from logger import init_logger                                  # la plupart des imports sont inutiles (peut être ?)
+from logger import init_logger  
+from db_logger import log_image_metadata                               
+from image_capture import save_image                             # la plupart des imports sont inutiles (peut être ?)
+
 
 import time
+import os
 
 # --- Paramètres de la grille (ajustés au bac FarmBot Express 1.1) --- probablement inutiles car déjà dans grid_coords.py mais à vérifier plus tard
 GRID_WIDTH = 6       # 1200 mm / 205 mm ≈ 6
@@ -54,8 +58,18 @@ def scan_area():
                 except Exception as e:
                     logger.error(f"❌ Erreur d'envoi de mauvaise herbe : {e}")
 
+            image_path = save_image(image, prefix="before", folder="images_archv/before")
+            log_image_metadata(os.path.basename(image_path), "before", x, y)
+            logger.info(f"💾 Image avant tir sauvegardée : {image_path}")
+
             send_laser_sequence()    # Envoie la séquence de laserification bien clean de send_laser.py
             logger.info("✅ Séquence de laserification envoyée.")
+
+            time.sleep(2)
+            image_after, _ = detect_weeds()  # On recapture une image après le laser
+            after_path = save_image(image_after, prefix="after", folder="images_archv/after")
+            logger.info(f"💾 Image après tir sauvegardée : {after_path}")
+
 
         time.sleep(DELAI_MOUVEMENT)  # Pause entre les captures (pour simuler le temps de déplacement)
 
