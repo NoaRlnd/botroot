@@ -21,9 +21,9 @@ def init_logger(name="botroot"):
     if logger.hasHandlers():
         return logger
 
-    logger.setLevel(logging.DEBUG)  # ⬅️ C'est ici qu'on force le niveau à DEBUG
+    logger.setLevel(logging.DEBUG)  # C'est ici qu'on force le niveau à DEBUG
 
-    
+
     # Format du log
     formatter = logging.Formatter('%(asctime)s — %(levelname)s — %(message)s')
 

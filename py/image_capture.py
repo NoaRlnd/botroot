@@ -11,7 +11,7 @@ def save_image(image, prefix="before", folder="images_archv/before"):
     Sauvegarde une image avec un nom unique dans le dossier spécifié.
     Le chemin est toujours relatif à la racine du projet.
     """
-    # 🔁 Recalcul du chemin complet à partir de la racine
+    # Recalcul du chemin complet à partir de la racine
     full_folder = os.path.join(PROJECT_ROOT, folder)
     os.makedirs(full_folder, exist_ok=True)
 
