@@ -1,6 +1,7 @@
 from blob_scan import detect_weeds
 from farmbot_status import get_current_position
-from grid_coords import generate_grid_positions
+# from grid_coords import generate_grid_positions                   à remettre très vite, c'est juste pour un test rapide 
+from grid_coords_test import generate_grid_positions
 from send_laser import send_laser_sequence
 from send_to_farmbot import send_weed_to_farmbot
 from logger import init_logger  
