@@ -1,6 +1,5 @@
 from blob_scan import detect_weeds
 from farmbot_status import get_current_position
-from movement import move_to, run_laserification_sequence
 from grid_coords import generate_grid_positions
 from send_laser import send_laser_sequence
 from send_to_farmbot import send_weed_to_farmbot
@@ -8,8 +7,8 @@ from logger import init_logger
 from db_logger import log_image_metadata                               
 from image_capture import save_image 
 from plant_filter import filter_weeds_against_plants
-from auth import get_headers                                        # la plupart des imports sont inutiles (peut être ?)
-
+from auth import get_headers
+from movement import init_farmbot
 
 import time
 import os
@@ -25,16 +24,20 @@ ORIGIN_Y = 0
 Z_HEIGHT = 0         # Hauteur fixe (à ajuster si besoin)
 
 DELAI_MOUVEMENT = 6.0 # Délai entre chaque mouvement (en secondes)
-SIMULATION_MODE = False  # True = pas de mouvement réel, False = déplacement réel
+SIMULATION_MODE = True  # True = pas de mouvement réel, False = déplacement réel
 
 # --- Fonction principale ---
 logger = init_logger()
 headers = get_headers()
+fb = init_farmbot()  
 
 def scan_area():
-    positions = generate_grid_positions()  # Génère les coordonnées de la grille à scanner depuis grid_coords.py
+    positions = generate_grid_positions()  # Coordonnées X, Y, Z à scanner
     total = len(positions)
     logger.info(f"🔁 Démarrage du scan sur {total} positions...\n")
+
+    # Initialisation de l'instance FarmBot
+    fb = init_farmbot()
 
     for i, (x, y, z) in enumerate(positions):
         logger.info(f"📍 Position {i+1}/{total} : X={x} mm, Y={y} mm, Z={z} mm")
@@ -42,48 +45,44 @@ def scan_area():
         if SIMULATION_MODE:
             logger.info("🧪 Mode simulation : aucun déplacement réel")
         else:
-            try:
-                move_to(x, y, z)  # Déplacement vers la position (x, y, z)
-            except Exception as e:
-                logger.error(f"❌ Erreur de déplacement : {e}")
-                continue
+            logger.debug("🚫 Déplacement désactivé (move_to commenté volontairement)")
+            # move_to(x, y, z)  # désactivé pour sécurité/test hors FarmBot
 
-        # Détection d'image simulée à la position (x, y)
+        # Capture simulée d'image + détection
         image, weeds = detect_weeds()
+        logger.info(f"🔍 {len(weeds)} mauvaise(s) herbe(s) détectée(s)")
 
-        # Filtrage des mauvaises herbes selon la position des plantes
+        # Filtrage des mauvaises herbes proches des plantes
         filtered_weeds = filter_weeds_against_plants(weeds, headers)
+        logger.info(f"🧹 {len(filtered_weeds)} gardée(s) après filtrage par spread")
 
-        logger.info(f"  -> {len(weeds)} mauvaise(s) herbe(s) détectée(s)")
-        logger.info(f"  -> {len(filtered_weeds)} mauvaise(s) herbe(s) gardée(s) après filtrage par spread\n")
-
-        # Envoi des données pour chaque mauvaise herbe gardée
         if not SIMULATION_MODE and filtered_weeds:
             for weed in filtered_weeds:
                 try:
-                    send_weed_to_farmbot(weed["x"], weed["y"])
-                    logger.info(f"📤 Mauvaise herbe envoyée à ({weed['x']}, {weed['y']})")
+                    send_weed_to_farmbot(fb, weed["x"], weed["y"])
+                    logger.info(f"📤 Envoyée à FarmBot à ({weed['x']}, {weed['y']})")
                 except Exception as e:
-                    logger.error(f"❌ Erreur d'envoi de mauvaise herbe : {e}")
+                    logger.error(f"❌ Erreur d’envoi : {e}")
 
-            # Sauvegarde de l'image avant
+            # Image avant laser
             image_path = save_image(image, prefix="before", folder="images_archv/before")
             log_image_metadata(os.path.basename(image_path), "before", x, y)
-            logger.info(f"💾 Image avant tir sauvegardée : {image_path}")
+            logger.info(f"💾 Image sauvegardée (avant) : {image_path}")
 
-            # Séquence de laserification
+            # Séquence laser
             send_laser_sequence()
-            logger.info("✅ Séquence de laserification envoyée.")
+            logger.info("✅ Séquence de laserification exécutée")
 
-            # Image après traitement
+            # Pause et recapture
             time.sleep(2)
             image_after, _ = detect_weeds()
             after_path = save_image(image_after, prefix="after", folder="images_archv/after")
-            logger.info(f"💾 Image après tir sauvegardée : {after_path}")
+            logger.info(f"💾 Image sauvegardée (après) : {after_path}")
 
+        #  Délai entre deux positions
         time.sleep(DELAI_MOUVEMENT)
 
-    logger.info("✅ Scan terminé.")
+    logger.info("🏁 Scan terminé.")
 
 
 if __name__ == "__main__":

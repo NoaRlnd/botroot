@@ -1,19 +1,17 @@
-import json
-import ssl
-import threading
-import time
-import websocket
-from dotenv import load_dotenv
 import os
 import requests
+from dotenv import load_dotenv
+from farmbot import Farmbot
 
-# Chargement des variables d'environnement depuis .env
+# Chargement des variables d'environnement
 load_dotenv()
 EMAIL = os.getenv("FARMBOT_EMAIL")
 PASSWORD = os.getenv("FARMBOT_PASSWORD")
 
-# Fonction d'authentification pour obtenir un token JWT
 def get_token():
+    """
+    Récupère un token JWT à partir des identifiants dans .env
+    """
     res = requests.post("https://my.farm.bot/api/tokens", json={
         "user": {
             "email": EMAIL,
@@ -23,27 +21,11 @@ def get_token():
     res.raise_for_status()
     return res.json()
 
-# Authentification
-print("📦 Test de petits déplacements du bras FarmBot...")
-print(f"🔐 Email récupéré : {EMAIL}")
-TOKEN = get_token()
-jwt_token = TOKEN["token"]["encoded"]  # Token JWT (string)
-
-# initialisation farmbot
-import sys
-import unittest
-from farmbot import Farmbot
-from unittest.mock import Mock, patch, call
-
-fb = Farmbot()
-fb.set_token(TOKEN)
-
-# récup points et envoie log
-points = fb.api_get('points') 
-fb.log('rien qui marche', message_type='info')
-# Envoi d'une requête GET à l'API pour récupérer les points
-
-sequence_name = "laserification"
-print(f"📤 Lancement de la séquence : {sequence_name}")
-fb.sequence(sequence_name)
-print(f"✅ Séquence {sequence_name} exécutée.")
+def init_farmbot():
+    """
+    Initialise et retourne une instance authentifiée de Farmbot
+    """
+    token = get_token()
+    fb = Farmbot()
+    fb.set_token(token)
+    return fb

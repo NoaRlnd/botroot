@@ -3,6 +3,9 @@ from conversion_px_to_mm import pixels_to_mm
 import cv2
 import numpy as np
 import requests
+from logger import init_logger
+
+logger = init_logger()
 
 # Dimensions de l'image en pixels
 img_width = 640
@@ -13,7 +16,7 @@ real_width_mm = 205   # à remplacer par la valeur réelle
 real_height_mm = 151  # pareil
 
 # Adresse IP de votre ESP32-CAM (modifiez-la si besoin)
-ESP32_URL = "http://192.168.68.245/capture" # URL de l'ESP32-CAM
+ESP32_URL = "http://192.168.10.245/capture" # URL de l'ESP32-CAM
 
 # --- Fonctions ---
 def get_image_from_esp32(url):
@@ -54,7 +57,7 @@ def draw_contours(image, contours):
                 real_width_mm, real_height_mm
             )
 
-            print(f"Weed #{i+1} détectée à x={x_mm:.1f} mm, y={y_mm:.1f} mm")
+            logger.info(f"Weed #{i+1} détectée à x={x_mm:.1f} mm, y={y_mm:.1f} mm")
 
             cv2.circle(image, center, radius, (0, 255, 0), 2)
             cv2.putText(image, f"Weed #{i+1}", (center[0] - 30, center[1] - 10),
@@ -89,3 +92,4 @@ def detect_weeds():
             })
 
     return image, weeds
+

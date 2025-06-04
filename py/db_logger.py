@@ -36,7 +36,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS images (
             id INT AUTO_INCREMENT PRIMARY KEY,
             filename VARCHAR(255) NOT NULL,
-            stage ENUM('before', 'after') NOT NULL,
+            type ENUM('before', 'after') NOT NULL,
             x INT NOT NULL,
             y INT NOT NULL,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -47,13 +47,13 @@ def init_db():
     conn.close()
 
 # Enregistre les métadonnées d'une image
-def log_image_metadata(filename, stage, x, y):
+def log_image_metadata(filename, type, x, y):
     conn = connect()
     if conn is None:
         return
     cursor = conn.cursor()
-    query = "INSERT INTO images (filename, stage, x, y) VALUES (%s, %s, %s, %s)"
-    values = (filename, stage, x, y)
+    query = "INSERT INTO images (filename, type, x, y) VALUES (%s, %s, %s, %s)"
+    values = (filename, type, x, y)
     try:
         cursor.execute(query, values)
         conn.commit()
