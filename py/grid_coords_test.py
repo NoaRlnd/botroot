@@ -1,6 +1,6 @@
 def generate_grid_positions():
     """
-    Génère une mini grille de test 2x3 avec STEP_X=205, STEP_Y=151, Z fixe à 0
+    Génère une mini grille de test 1x1 avec STEP_X=205, STEP_Y=151, Z fixe à 0
     """
     step_x = 205
     step_y = 151
@@ -8,8 +8,8 @@ def generate_grid_positions():
     origin_y = 0
     z_height = 0
 
-    width = 2
-    height = 3
+    width = 1
+    height = 1
 
     positions = []
     for i in range(height):

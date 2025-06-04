@@ -41,12 +41,13 @@ BotRoot/
 │   ├── plant_filter.py           # Filtrage des herbes proches des plantes (spread)
 │   ├── test_distance.py          # Test unitaire de la distance euclidienne
 │   ├── call_sequence.py          # Lancement manuel d'une séquence FarmBot
+│   ├── auth.py                   # Authentification API FarmBot
 │   └── get_bac_dimensions.py     # Estimation (obsolète) de la taille du bac
 ├── logs/                         # Dossier des fichiers logs
 ├── images_archv/
 │   ├── before/                   # Images avant laserification
 │   └── after/                    # Images après laserification
-├── .env                          # Identifiants FarmBot (non versionné)
+├── .env                          # Identifiants FarmBot + accès DB (non versionné)
 ├── requirements.txt              # Liste des dépendances Python
 ├── README.md                     # Présentation du projet (ce fichier)
 └── git_guide.md                  # Aide-mémoire Git
@@ -66,6 +67,36 @@ BotRoot/
 - Base MariaDB pour les métadonnées
 - VS Code, Git, GitHub
 
+---
+
+## Procédure de démo sans FarmBot (simulation)
+Branche la caméra et/ou prépare une feuille avec des “plantes” et “mauvaises herbes” dessinées
+
+Configure le .env (voir exemple plus bas)
+
+(Optionnel) Lance un environnement virtuel + installe les dépendances :
+
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+Lancer le scan automatique :
+
+python grid_scan.py
+Le script va :
+
+-Parcourir la grille (ou une seule position en test)
+
+-Détecter les herbes sur l’image
+
+-Filtrer les herbes trop proches des plantes (via l’API)
+
+-Sauvegarder les images avant/après (images_archv/)
+
+-Logger tout le déroulé dans logs/
+
+-(Si la BDD est connectée, écrire les métadonnées)
+
+Montre les résultats dans le terminal, le dossier images_archv/, et la BDD si accessible
 
 ---
 

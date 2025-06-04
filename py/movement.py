@@ -29,3 +29,10 @@ def init_farmbot():
     fb = Farmbot()
     fb.set_token(token)
     return fb
+
+_farmbot_instance = None
+def get_farmbot():
+    global _farmbot_instance
+    if _farmbot_instance is None:
+        _farmbot_instance = init_farmbot()
+    return _farmbot_instance

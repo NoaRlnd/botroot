@@ -1,5 +1,3 @@
-# auth.py
-
 import os
 import requests
 from dotenv import load_dotenv
@@ -29,4 +27,5 @@ def get_headers():
     Renvoie les en-têtes d’authentification à utiliser dans les requêtes API.
     """
     token = get_token()
-    return {"Authorization": f"Bearer {token}"}
+    
+    return {"Authorization": f"Bearer {token['encoded']}"}
