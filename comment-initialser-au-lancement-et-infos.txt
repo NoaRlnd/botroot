@@ -19,3 +19,7 @@ python send_to_farmbot.py
 
     - Tester l'authentification API (token)
 python BS_testing.py
+
+-pour la conexion des utilisateurs faut server.js dans auth_backend
+
+-pour le reste jsp

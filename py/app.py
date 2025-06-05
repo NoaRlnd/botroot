@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from movement import init_farmbot  # Utilise ton movement.py !
+from movement import init_farmbot  
 import os
 
 app = Flask(__name__)
