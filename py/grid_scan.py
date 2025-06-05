@@ -57,6 +57,19 @@ def scan_area():
         filtered_weeds = filter_weeds_against_plants(weeds, headers)
         logger.info(f"🧹 {len(filtered_weeds)} gardée(s) après filtrage par spread")
 
+        # Sauvegarde image et log TOUJOURS, simulation ou réel
+        prefix = "before_simu" if SIMULATION_MODE else "before"
+        image_path = save_image(image, prefix=prefix, folder="images_archv/before")
+        log_image_metadata(os.path.basename(image_path), prefix, x, y)
+        logger.info(f"💾 Image sauvegardée (avant) : {image_path}")
+
+        # Simulation d'une image "après"
+        image_after, _ = detect_weeds()
+        prefix_after = "after_simu" if SIMULATION_MODE else "after"
+        after_path = save_image(image_after, prefix=prefix_after, folder="images_archv/after")
+        logger.info(f"💾 Image sauvegardée (après) : {after_path}")
+        log_image_metadata(os.path.basename(after_path), prefix_after, x, y)
+
         if not SIMULATION_MODE and filtered_weeds:
             for weed in filtered_weeds:
                 try:
@@ -65,16 +78,11 @@ def scan_area():
                 except Exception as e:
                     logger.error(f"❌ Erreur d’envoi : {e}")
 
-            # Image avant laser
-            image_path = save_image(image, prefix="before", folder="images_archv/before")
-            log_image_metadata(os.path.basename(image_path), "before", x, y)
-            logger.info(f"💾 Image sauvegardée (avant) : {image_path}")
-
             # Séquence laser
             send_laser_sequence()
             logger.info("✅ Séquence de laserification exécutée")
 
-            # Pause et recapture
+            # Pause et recapture image après tir
             time.sleep(2)
             image_after, _ = detect_weeds()
             after_path = save_image(image_after, prefix="after", folder="images_archv/after")

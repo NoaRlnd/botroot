@@ -15,12 +15,11 @@ CURRENT_Z = 0
 def api_move():
     global CURRENT_X, CURRENT_Y, CURRENT_Z
     data = request.json
-    direction = data.get('direction', '')
-
+    direction = data.get('direction', '') if data else ''
     # On part de la position simulée
     x, y, z = CURRENT_X, CURRENT_Y, CURRENT_Z
 
-    step = 10  # mm
+    step = 50  # mm
 
     if direction == "Haut":
         y += step
@@ -60,7 +59,7 @@ def api_reset():
 @app.route('/api/laser', methods=['POST'])
 def api_laser():
     data = request.json
-    state = bool(data.get('state', False))
+    state = bool(data.get('state', False)) if data else False
     try:
         fb = init_farmbot()
         if state:

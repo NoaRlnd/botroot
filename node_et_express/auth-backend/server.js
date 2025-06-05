@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '../../py/.env' });
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
@@ -9,10 +10,11 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const db = mysql.createConnection({
-    host: '172.22.0.230', // Remplacez par l'adresse IP de votre Raspberry Pi
-    user: 'root',
-    password: 'adminadmin.2025', // Remplacez par le mot de passe de votre utilisateur MariaDB
-    database: 'auth_db'
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 db.connect((err) => {

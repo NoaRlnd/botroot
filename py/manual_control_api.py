@@ -10,7 +10,10 @@ fb = init_farmbot()
 
 @app.route("/api/move", methods=["POST"])
 def move():
-    direction = request.json.get("direction")
+    data = request.get_json()
+    if not data or "direction" not in data:
+        return jsonify({"status": "error", "message": "Direction non fournie"}), 400
+    direction = data.get("direction")
     try:
         # Ici tu adaptes la logique selon la commande envoyée (ex: 'Haut', 'Bas', etc.)
         step = 20  # mm à chaque déplacement, adapte à ton usage
