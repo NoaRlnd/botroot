@@ -1,7 +1,7 @@
 
-# 📘 Guide Git pour le projet BotRoot
+# 📘 Guide Git pour le projet BotRoot (ou en général ça marche aussi)
 
-## ⚙️ Initialisation du projet (déjà fait)
+## Initialisation du projet (normalement c'est déjà fait)
 
 ```bash
 git init                            # Initialise un dépôt Git
@@ -30,7 +30,7 @@ git pull                            # Met à jour ton dossier avec les dernière
 
 ---
 
-## 🔍 Vérifier l’état de ton projet
+## Vérifier l’état de ton projet
 
 ```bash
 git status                          # Affiche les fichiers modifiés, ajoutés ou non suivis
@@ -46,7 +46,7 @@ git checkout -- fichier.py          # Annule les changements sur un fichier donn
 
 ---
 
-## 🌿 Créer une nouvelle branche (optionnel, pour faire des tests)
+## Créer une nouvelle branche (optionnel, pour faire des tests)
 
 ```bash
 git checkout -b nom_de_branche     # Crée une nouvelle branche et bascule dessus
@@ -64,7 +64,7 @@ git merge nom_de_branche
 
 ---
 
-## 📦 Exemples concrets (BotRoot)
+## Exemples concrets (BotRoot)
 
 ```bash
 # Tu viens de modifier blob_scan.py et send_to_farmbot.py
@@ -80,7 +80,7 @@ git pull
 
 ---
 
-## 🧠 Astuce : utiliser .gitignore
+## Astuce : utiliser .gitignore
 Ajoute un fichier `.gitignore` avec ceci :
 
 ```
@@ -95,7 +95,7 @@ __pycache__/
 
 ---
 
-## 🧳 Reprendre le projet sur un autre PC (setup multi-machine)
+## Reprendre le projet sur un autre PC (setup multi-machine)
 
 ### 1. Depuis ton PC actuel (sauvegarde sur GitHub) :
 
@@ -122,7 +122,7 @@ FARMBOT_EMAIL=ton@email.com
 FARMBOT_PASSWORD=tonmotdepasse
 ```
 
-➡️ Tu es prêt à lancer le projet :
+➡️ Lancer le projet : (outdated je le met à jour plus tard)
 
 ```bash
 python blob_scan.py

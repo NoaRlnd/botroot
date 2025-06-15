@@ -16,7 +16,7 @@ fb = init_farmbot()
 #     direction = data.get("direction")
 #     try:
 #         # Ici tu adaptes la logique selon la commande envoyée (ex: 'Haut', 'Bas', etc.)
-#         step = 20  # mm à chaque déplacement, adapte à ton usage
+#         step = 50  # mm à chaque déplacement, adapte à ton usage
 #         pos = {"Haut": (0, step), "Bas": (0, -step), "Droite": (step, 0), "Gauche": (-step, 0)}
 #         if direction in pos:
 #             x_delta, y_delta = pos[direction]
@@ -43,11 +43,10 @@ def move():
         return jsonify({"status": "error", "message": "Direction non fournie"}), 400
     direction = data.get("direction")
     try:
-        step = 20  # mm à chaque déplacement, adapte à ton usage
+        step = 50  # mm à chaque déplacement, adapte à ton usage
         pos_delta = {"Haut": (0, step), "Bas": (0, -step), "Droite": (step, 0), "Gauche": (-step, 0)}
         if direction in pos_delta:
             x_delta, y_delta = pos_delta[direction]
-            # ===== Correction ici !
             status = fb.api_get("status")
             print("===== STATUS:", status)
             pos = status.get("location_data", {}).get("position", {})
